@@ -51,7 +51,9 @@ public class N2 {
 			public void setBlue(int blue) {
 				this.blue = blue;
 			}
-
+			public int getProduct() {
+				return red * green * blue;
+			}
 			@Override
 			public String toString() {
 				return "CubeGame [id=" + id + ", green=" + green + ", red=" + red + ", blue=" + blue + "]";
@@ -67,11 +69,15 @@ public class N2 {
 			FileReader fileReader = new FileReader(filePath);
 			try (BufferedReader reader = new BufferedReader(fileReader)) {
 				List<CubeGame> cubeGameList = new ArrayList<>();
+				List<CubeGame> cubeGameProduct = new ArrayList<>();
+
 				reader
 				.lines()
 				.forEach(r -> {
 					Integer id = Integer.valueOf(r.split(String.valueOf(':'))[0].replace("Game ",""));
-
+					CubeGame cbp = new CubeGame(id);
+					cubeGameProduct.add(cbp);
+					
 					String cubesString = r.split(String.valueOf(':'))[1].replaceAll("\\s+","");
 					List<String> cubesList = Arrays.asList(cubesString.split(String.valueOf(";")));
 
@@ -86,6 +92,9 @@ public class N2 {
 						while (redMatcher.find()) {
 							Integer eachRedCubes = Integer.valueOf(redMatcher.group(1));
 							cb.setRed(eachRedCubes);
+							if (cbp.getRed() < eachRedCubes) {
+								cbp.setRed(eachRedCubes);
+							}
 						}
 
 						final Pattern greenRegex = Pattern.compile("([1-9]||[1-9][0-9])(?:green)");
@@ -93,6 +102,9 @@ public class N2 {
 						while (greenMatcher.find()) {
 							Integer eachGreenCubes = Integer.valueOf(greenMatcher.group(1));
 							cb.setGreen(eachGreenCubes);
+							if (cbp.getGreen() < eachGreenCubes) {
+								cbp.setGreen(eachGreenCubes);
+							}
 						}
 
 						final Pattern blueRegex = Pattern.compile("([1-9]||[1-9][0-9])(?:blue)");
@@ -100,17 +112,20 @@ public class N2 {
 						while (blueMatcher.find()) {
 							Integer eachBlueCubes = Integer.valueOf(blueMatcher.group(1));
 							cb.setBlue(eachBlueCubes);
+							if (cbp.getBlue() < eachBlueCubes) {
+								cbp.setBlue(eachBlueCubes);
+							}
 						}
 					});
 				});
-				System.out.println(cubeGameList);
+//				System.out.println(cubeGameList);
 
 				Set<Integer> idToRemove = cubeGameList
 						.stream()
 						.filter(o -> o.getRed() > 12 || o.getGreen() > 13 || o.getBlue() > 14)
 						.map(v -> v.getId())
 						.collect(Collectors.toSet());
-				System.out.println(idToRemove);
+//				System.out.println(idToRemove);
 
 				Integer sum = cubeGameList
 						.stream()
@@ -118,7 +133,17 @@ public class N2 {
 						.distinct()
 						.filter(id -> !idToRemove.contains(id))
 						.reduce(0, Integer::sum);
-				System.out.println(sum);
+				System.out.println("Somma id validi: " + sum);
+			
+//				System.out.println(cubeGameProduct);
+				
+				Integer product = cubeGameProduct
+				.stream()
+				.map(CubeGame::getProduct)
+				.reduce(0, Integer::sum);
+				
+				System.out.println("Prodotto dei valori maggiori possibili: " + product);
+
 				return sum;
 			}  catch (FileNotFoundException f){
 		        System.out.println(filePath+" does not exist");
