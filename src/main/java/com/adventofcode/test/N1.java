@@ -5,16 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class AdventOfCode {
+public class N1 {
 	
-
 	public static void main(String[] args) {
 		n1();
 	}
 
 	public static Integer n1() {
 		try {
-			String filePath = "src/main/resources/input.txt";
+			String filePath = "src/main/resources/input1.txt";
 			FileReader fileReader = new FileReader(filePath);
 			try (BufferedReader reader = new BufferedReader(fileReader)) {
 				Integer sum = reader
