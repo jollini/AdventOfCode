@@ -34,8 +34,10 @@ public class N1 {
 	}
 
 	private static void part1(List<String> lines) {
-		Integer sum = lines.stream().map(l -> l.replaceAll("[a-zA-Z]", ""))
-				.map(ln -> ln.charAt(0) + "" + ln.charAt(ln.length() - 1)).map(Integer::valueOf)
+		Integer sum = lines.stream()
+				.map(l -> l.replaceAll("[a-zA-Z]", ""))
+				.map(ln -> ln.charAt(0) + "" + ln.charAt(ln.length() - 1))
+				.map(Integer::valueOf)
 				.reduce(0, Integer::sum);
 		System.out.println(sum);
 	}
@@ -63,7 +65,8 @@ public class N1 {
 				String stringNumber = lastMatcher.group(1);
 //				System.out.println("Found " + stringNumber + " on line " + index);
 				int endIdx = lastMatcher.end();
-				String stringAfter = initialString.substring(endIdx, initialString.length());
+				int afterIndex = endIdx < initialString.length() ? endIdx + 1 : endIdx;
+				String stringAfter = initialString.substring(afterIndex, initialString.length());
 				Matcher afterMatcher = Pattern.compile("\\d").matcher(stringAfter);
 				if (!afterMatcher.find()) {
 					l = l.replaceAll(stringNumber, getStringNumber(stringNumber));
@@ -75,37 +78,32 @@ public class N1 {
 			System.out.println(l + " at index " + index + " from input " + initialString);
 		});
 
-		int realSum = parsedList.stream().map(Integer::valueOf).reduce(0, Integer::sum);
+		int realSum = parsedList.stream()
+				.map(Integer::valueOf)
+				.reduce(0, Integer::sum);
 		System.out.println(realSum);
-
 	}
 
-	/**
-	 * This is a method to parse numbers as string.
-     * We pay attention to substitute the number, retrieving
-     * also the initial and final char to preserve other numbers
-	 * written as string with sharing letters. Ex twone 2 and 1.
-	 */
 	private static String getStringNumber(String stringNumber) {
 		switch (stringNumber) {
 		case "one":
-			return "o1e";
+			return "1";
 		case "two":
-			return "t2o";
+			return "2";
 		case "three":
-			return "t3e";
+			return "3";
 		case "four":
-			return "f4r";
+			return "4";
 		case "five":
-			return "f5e";
+			return "5";
 		case "six":
-			return "s6x";
+			return "6";
 		case "seven":
-			return "s7n";
+			return "7";
 		case "eight":
-			return "e8t";
+			return "8";
 		case "nine":
-			return "n9e";
+			return "9";
 		default:
 			return "";
 		}
