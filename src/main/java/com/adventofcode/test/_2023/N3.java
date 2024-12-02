@@ -1,4 +1,4 @@
-package com.adventofcode.test;
+package com.adventofcode.test._2023;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,7 +20,7 @@ public class N3 {
 
 	public static void n3() {
 		try {
-			String filePath = "src/main/resources/input3.txt";
+			String filePath = "src/main/resources/2023/input3.txt";
 			FileReader fileReader = new FileReader(filePath);
 			try (BufferedReader reader = new BufferedReader(fileReader)) {
 				sum(reader);

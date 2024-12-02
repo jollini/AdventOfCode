@@ -1,4 +1,4 @@
-package com.adventofcode.test;
+package com.adventofcode.test._2023;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -65,7 +65,7 @@ public class N2 {
 			 * with only 12 red cubes, 13 green cubes, and 14 blue cubes. 
 			 * What is the sum of the IDs of those games?
 			 */
-			String filePath = "src/main/resources/input2.txt";
+			String filePath = "src/main/resources/2023/input2.txt";
 			FileReader fileReader = new FileReader(filePath);
 			try (BufferedReader reader = new BufferedReader(fileReader)) {
 				List<CubeGame> cubeGameList = new ArrayList<>();
