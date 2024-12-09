@@ -47,7 +47,6 @@ public class N5 {
                     numbersSequence.add(line);
                 }
             }
-
         }
 
         // Cycling records and checks if is a valid record
@@ -63,24 +62,22 @@ public class N5 {
             int middleIndex = (stringNumbers.size() / 2);
             int numToSum = Integer.parseInt(stringNumbers.get(middleIndex));
             sum += numToSum;
-            System.out.println("numToSum : " + numToSum);
-
+//            System.out.println("numToSum : " + numToSum);
         }
 
-
-        System.out.println("validRecords : " + validRecords);
+//        System.out.println("validRecords : " + validRecords);
         return sum;
     }
 
     private static boolean isValidRecord(List<String> rules, String n) {
-        List<String> numbersToReorderArray = Arrays.stream(n.split(",")).toList();
+        List<String> numbersList = Arrays.stream(n.split(",")).toList();
         for (String r : rules) {
-            String[] splittedRules = r.split("\\|");
-            String firstNumber = splittedRules[0];
-            String secondNumber = splittedRules[1];
-            if (numbersToReorderArray.contains(firstNumber) &&
-                    numbersToReorderArray.contains(secondNumber) &&
-                    numbersToReorderArray.indexOf(firstNumber) > numbersToReorderArray.indexOf(secondNumber)
+            String[] splitRules = r.split("\\|");
+            String firstNumber = splitRules[0];
+            String secondNumber = splitRules[1];
+            if (numbersList.contains(firstNumber) &&
+                    numbersList.contains(secondNumber) &&
+                    numbersList.indexOf(firstNumber) > numbersList.indexOf(secondNumber)
             ) {
                 return false;
             }
