@@ -9,17 +9,17 @@ import java.util.List;
 public class N4 {
 
     public static void main(String[] args) {
-        n1();
+        exercise();
     }
 
-    public static void n1() {
+    public static void exercise() {
         try {
             String filePath = "src/main/resources/2024/input4.txt";
             FileReader fileReader = new FileReader(filePath);
             try (BufferedReader reader = new BufferedReader(fileReader)) {
                 List<String> lines = reader.lines().toList();
-//                int part1 = part1(lines);
-//                System.out.println("Part 1: " + part1);
+                int part1 = part1(lines);
+                System.out.println("Part 1: " + part1);
                 int part2 = part2(lines);
                 System.out.println("Part 2: " + part2);
             } catch (FileNotFoundException f) {

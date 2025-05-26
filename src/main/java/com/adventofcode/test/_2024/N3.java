@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 public class N3 {
 
     public static void main(String[] args) {
-        n1();
+        exercise();
     }
 
-    public static void n1() {
+    public static void exercise() {
         try {
             String filePath = "src/main/resources/2024/input3.txt";
             FileReader fileReader = new FileReader(filePath);
