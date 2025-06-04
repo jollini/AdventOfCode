@@ -22,6 +22,8 @@ public class N7 {
                 List<String> lines = reader.lines().toList();
                 long part1 = part1(lines);
                 System.out.println("Part 1: " + part1);
+                long part2 = part2(lines);
+                System.out.println("Part 2: " + part2);
             } catch (FileNotFoundException f) {
                 System.out.println(filePath + " does not exist");
             } catch (IOException e) {
@@ -67,4 +69,41 @@ public class N7 {
         return findCombinations(numbers, result, i + 1, currentNumber * resultOperation);
     }
 
+    public static long part2(List<String> lines) {
+        List<Long> validRecords = new ArrayList<>();
+
+        for (String line : lines) {
+            String[] splitArray = line.split(":");
+            long result = Long.parseLong(splitArray[0]);
+            List<Long> numberSequence = Arrays.stream(splitArray[1].trim().split(" ")).map(Long::parseLong).toList();
+            if (isValidSequenceV2(result, numberSequence)) {
+                validRecords.add(result);
+            }
+//            System.out.println("result : " + result);
+//            System.out.println("numberSequence : " + Arrays.toString(numberSequence));
+        }
+        System.out.println("validRecords : " + validRecords);
+
+        return validRecords.stream().mapToLong(o -> o).sum();
+    }
+
+    private static boolean isValidSequenceV2(long result, List<Long> numbers) {
+        return findCombinationsV2(numbers, result, 0, 0);
+    }
+
+    private static boolean findCombinationsV2(List<Long> numbers, long result, int i, long resultOperation) {
+        if (i == numbers.size()) {
+            return resultOperation == result;
+        }
+
+        Long currentNumber = numbers.get(i);
+
+        if (findCombinationsV2(numbers, result, i + 1, Long.parseLong(String.valueOf(resultOperation).concat(String.valueOf(currentNumber))))) {
+            return true;
+        }
+        if (findCombinationsV2(numbers, result, i + 1, currentNumber + resultOperation)) {
+            return true;
+        }
+        return findCombinationsV2(numbers, result, i + 1, currentNumber * resultOperation);
+    }
 }
